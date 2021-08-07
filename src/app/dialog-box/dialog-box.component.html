@@ -1,0 +1,52 @@
+<h1 mat-dialog-title><strong>{{action}} - User</strong></h1>
+<div mat-dialog-content>
+	<ng-container *ngIf="action != 'Delete'; else elseTemplate">
+		<table width="100%">
+			<tr>
+				<td>
+					<mat-form-field appearance="fill" class="full-width-field">
+					    <input placeholder="{{action}} Task Name" matInput [(ngModel)]="local_data.taskName">
+						<span [ngClass]="taskNameValidClass" *ngIf='taskNameValidClass'>
+		                    Task Name is required
+		                </span>
+					</mat-form-field>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<mat-form-field appearance="fill" class="full-width-field">
+						  <mat-label>Choose a date</mat-label>
+						  <input matInput [matDatepicker]="datepicker" [(ngModel)]="local_data.date">
+						  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+						  	<mat-datepicker #datepicker>
+					  		</mat-datepicker>
+					  	<span [ngClass]="dateValidClass" *ngIf='dateValidClass'>
+		                    Select date
+		                </span>
+					</mat-form-field>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<mat-form-field appearance="fill" class="full-width-field">
+					  <mat-label>Choose Status</mat-label>
+					  <mat-select [(ngModel)]="local_data.status">
+					    <mat-option value="1">Active</mat-option>
+					    <mat-option value="2">In Active</mat-option>
+					  </mat-select>
+					  	<span [ngClass]="statusValidClass" *ngIf='statusValidClass'>
+		                    Select Status
+		                </span>
+					</mat-form-field>
+				</td>
+			</tr>
+		</table>
+	</ng-container>
+  	<ng-template #elseTemplate>
+    	Sure to delete <b>{{local_data.taskName}}</b>?
+  	</ng-template>
+</div>
+<div mat-dialog-actions>
+	<button mat-raised-button color="primary" (click)="doAction()">{{action}}</button>
+  	<button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
